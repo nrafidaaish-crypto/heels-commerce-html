@@ -377,3 +377,131 @@ body {
 }
 .btn-action-edit { color: #2980b9; background: rgba(41, 128, 185, 0.1); }
 .btn-action-delete { color: #e74c3c; background: rgba(231, 76, 60, 0.1); }
+
+
+/* ==========================================
+   TAMBAHAN PENYESUAIAN FITUR ADMIN TABEL BARU
+   (Menyesuaikan Desain & Palette Asli)
+   ========================================== */
+
+/* Navigasi Tab Admin */
+.admin-nav-bar {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 16px;
+  overflow-x: auto;
+  padding-bottom: 8px;
+  scrollbar-width: none; /* Hide scrollbar Firefox */
+}
+.admin-nav-bar::-webkit-scrollbar {
+  display: none; /* Hide scrollbar Chrome/Safari */
+}
+
+.admin-nav-btn {
+  background: rgba(255, 255, 255, 0.94);
+  border: 1.5px solid var(--border-light);
+  color: var(--primary);
+  padding: 8px 14px;
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: 700;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  box-shadow: var(--shadow-card);
+}
+
+.admin-nav-btn:hover, 
+.admin-nav-btn.active {
+  background: var(--gradient-btn);
+  color: #ffffff;
+  border-color: transparent;
+  box-shadow: 0 4px 12px rgba(133, 15, 55, 0.25);
+}
+
+/* Section Konten Tab Admin */
+.admin-tab-content {
+  background: rgba(255, 255, 255, 0.94);
+  backdrop-filter: blur(8px);
+  border-radius: var(--radius);
+  padding: 16px;
+  border: 1px solid var(--border-light);
+  box-shadow: var(--shadow-card);
+  overflow-x: auto;
+}
+
+.admin-tab-content h3 {
+  font-size: 15px;
+  color: var(--primary-dark);
+  margin-bottom: 12px;
+}
+
+/* Styling Tabel Admin */
+.admin-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  margin-top: 8px;
+}
+
+.admin-table th, 
+.admin-table td {
+  padding: 10px 8px;
+  font-size: 11px;
+  border-bottom: 1px solid var(--border-light);
+  text-align: left;
+}
+
+.admin-table th {
+  background: var(--color-lavender);
+  color: var(--primary);
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.admin-table th:first-child {
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+}
+
+.admin-table th:last-child {
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+
+/* Element Dalam Tabel Admin */
+.admin-thumb-img {
+  width: 42px;
+  height: 42px;
+  object-fit: cover;
+  border-radius: 8px;
+  border: 1px solid var(--border-light);
+  background: var(--color-lavender);
+}
+
+.profit-text {
+  color: #27ae60;
+  font-weight: 700;
+}
+
+.badge-info {
+  background: var(--color-lavender);
+  color: var(--primary);
+  padding: 3px 8px;
+  border-radius: 6px;
+  font-size: 10px;
+  font-weight: 700;
+  border: 1px solid var(--border-light);
+  display: inline-block;
+}
+
+.admin-select-status {
+  padding: 6px 8px;
+  border-radius: 8px;
+  border: 1.5px solid var(--border-light);
+  background: #ffffff;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--primary-dark);
+  outline: none;
+}

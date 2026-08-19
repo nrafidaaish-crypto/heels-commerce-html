@@ -140,7 +140,7 @@ let products = [
   },
   {
     id: 8,
-    name: "HEELS dior cute ",
+    name: "Christian Dior Olive Green & Pink Lace-Up Pumps", 
     price: 350000000,
     stock: 22,
     rating: 4.8,
@@ -151,43 +151,43 @@ let products = [
       "PINK": "matchadior.jpg"
     },
     img: "matchadior.jpg",
-    desc: "Dibalut lapisan glitter mengkilap yang berkilau indah saat terkena pencahayaan pesta.",
+    desc: "High heels pointed toe dari Dior dengan paduan warna yang sangat unik dan romantis: bahan fabric/suede berwarna hijau olive/army yang dipadukan dengan tali kulit tipis berwarna soft pink/nude. Dilengkapi detail pita pink mungil di atas jari kaki serta tali lace-up panjang yang dapat dililitkan di pergelangan kaki.",
     reviews: [
-      { name: "Lianna Felicia", rating: 5, date: "14 Mei 2026", variant: "Warna: GREEN", comment: "Perpaduan warna nya sweet dan cute banget cocok untuk dipakai ke acara acara santai" }
+      { name: "Lianna Felicia", rating: 5, date: "14 Mei 2026", variant: "Warna: GREEN", comment: "Sangat feminin dengan nuansa coquette/vintage ala Galliano-era Dior! Perpaduan warna hijau olive dan soft pink terlihat sangat artistik." }
     ]
   },
   {
     id: 9,
-    name: "Minimalist Clear Strap Mule Heels 6cm",
+    name: "Prada pretty black dengan pita coklat",
     price: 225000090,
     stock: 45,
     rating: 4.7,
     sold: 198,
-    colors: ["CLEAR", "NUDE"],
+    colors: ["HITAM", "NUDE"],
     colorMap: {
-      "CLEAR": " channel.jpg",
-      "NUDE": "channel.jpg"
+      "CLEAR": "prada.jpg",
+      "NUDE": "prada.jpg"
     },
-    img: "channel.jpg",
-    desc: "Tren bening transparan dengan tali mika premium lentur yang tidak menimbulkan bekas di kulit.",
+    img: "prada.jpg",
+    desc: "Tren Sepatu heels dari Prada dengan kombinasi warna hitam dan cokelat yang sangat elegan. Memiliki potongan vamp berbentuk V-cut (sweetheart line) yang unik dan mempercantik siluet kaki, ujung jari runcing (pointed toe), serta hak stiletto tipis yang anggun. Bagian depan dipermanis dengan aksen pita kain satin/velvet berwarna cokelat moka.",
     reviews: [
-      { name: "Shafira Aris", rating: 5, date: "06 Ags 2026", variant: "Warna: CLEAR", comment: "Tali beningnya lentur, gak sakit sama sekali pas dipakai jalan." }
+      { name: "Shafira Aris", rating: 5, date: "06 Jun 2026", variant: "Warna: HITAM", comment: "Potongan V-cut dan bentuk pointed toe-nya memberikan efek kaki terlihat lebih jenjang dan langsing. Kombinasi warna hitam dan aksen pita cokelatnya memberikan kesan vintage 90s chic yang sangat estetik dan tidak pasaran." }
     ]
   },
   {
     id: 10,
-    name: "Prada vintage Cross-Strap Chunky Heels 7cm",
+    name: "Channel Two-tone strappy Heels Vintage",
     price: 275000000,
     stock: 38,
     rating: 4.9,
-    sold: 140,
+    sold: 1240,
     colors: ["BLACK", "BROWN"],
     colorMap: {
-      "BLACK": "prada.jpg",
-      "BROWN": "prada.jpg"
+      "BLACK": "channel.jpg",
+      "BROWN": "channel.jpg"
     },
-    img: "prada.jpg",
-    desc: "Desain tali silang bergaya vintage berbahan kulit premium dengan ketahanan ekstra.",
+    img: "channel.jpg",
+    desc: "Sepatu heels slingback dari Chanel dengan interpretasi modern dari konsep two-tone ikonik mereka. Bagian toe cap berwarna cream/nude berbahan kulit halus dengan aksen logo mini CC emas yang mewah di depan. Dipadukan dengan tali-tali kulit berwarna cokelat tua (dark brown) yang menyilang anggun di atas punggung kaki hingga pergelangan.",
     reviews: [
       { name: "Aurelia Cinta", rating: 5, date: "30 Nov 2026", variant: "Warna: BLACK", comment: "Suka banget sama model tali silangnya, terkesan ramping di kaki." }
     ]

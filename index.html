@@ -2,395 +2,138 @@
 <html lang="id">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Pretty Heels Store - Marketplace Heels Wanita</title>
-  
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pretty Heels - Store & Admin</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-  <div id="app-container">
-    <!-- Toast Notification -->
-    <div id="toast"><i class="fa-solid fa-circle-check"></i> <span id="toast-text">Notifikasi</span></div>
+  <!-- HEADER APPLIKASI -->
+  <header class="app-header">
+    <div class="header-container">
+      <h1>Pretty Heels</h1>
+      <div id="user-role-badge">Role: Guest</div>
+    </div>
+  </header>
 
-    <!-- STICKY HEADER -->
-    <header class="sticky-header" id="main-header" style="display:none;">
-      <div style="display:flex; align-items:center; gap:10px;">
-        <button id="back-btn" class="cart-icon-btn" style="display:none;" onclick="goBack()"><i class="fa-solid fa-arrow-left"></i></button>
-        <span class="header-title" id="page-title">Pretty Heels Store</span>
-      </div>
-      <div id="header-actions">
-        <button class="cart-icon-btn" onclick="navigateTo('cart-page')">
-          <i class="fa-solid fa-bag-shopping"></i>
-          <span class="cart-badge" id="cart-badge-count">0</span>
-        </button>
-      </div>
-    </header>
+  <main class="main-container">
 
-    <!-- 0. HALAMAN PILIHAN PERAN -->
-    <div id="role-selection-page" class="page landing-screen active">
-      <div class="brand-logo"><i class="fa-solid fa-shoe-prints"></i></div>
-      <h2 style="color: var(--primary-dark); font-weight:800; font-size: 26px;">Pretty Heels Store</h2>
-      <p style="font-size:12px; color: var(--primary); margin-bottom:30px; font-weight:500;">Marketplace High Heels Wanita Elegant & Premium</p>
-
-      <div style="text-align: left; margin-bottom: 12px; font-size: 13px; font-weight: 600; color: var(--primary-dark);">
-        <i class="fa-solid fa-user-check"></i> Pilih Akses Pengguna:
-      </div>
-
-      <div class="role-card-btn" onclick="chooseRole('customer')">
-        <div class="role-icon-box"><i class="fa-solid fa-user"></i></div>
-        <div style="text-align: left;">
-          <h4 style="font-size: 15px; color: var(--primary); font-weight: 700;">Masuk Sebagai Pelanggan</h4>
-          <p style="font-size: 11px; color: var(--text-muted);">Jelajahi & Beli Koleksi High Heels Favorit Anda</p>
-        </div>
-      </div>
-
-      <div class="role-card-btn" onclick="chooseRole('admin')">
-        <div class="role-icon-box"><i class="fa-solid fa-user-shield"></i></div>
-        <div style="text-align: left;">
-          <h4 style="font-size: 15px; color: var(--primary); font-weight: 700;">Masuk Sebagai Admin (Penjual)</h4>
-          <p style="font-size: 11px; color: var(--text-muted);">Kelola Produk, Stok & Laporan Penjualan Toko</p>
-        </div>
+    <!-- CONTAINER LAMAN CUSTOMER -->
+    <div id="customer-page" class="app-page">
+      <h2>Katalog Sepatu Heels</h2>
+      <div id="product-grid-container" class="product-grid">
+        <!-- Produk Customer Di-render lewat customer.js -->
       </div>
     </div>
 
-    <!-- 1. HALAMAN LOGIN -->
-    <div id="login-page" class="page landing-screen">
-      <div class="brand-logo"><i class="fa-solid fa-shoe-prints"></i></div>
-      <h2 style="color: var(--primary-dark); font-weight:800; font-size: 24px;" id="login-role-title">Login Pelanggan</h2>
-      <p style="font-size:12px; color: var(--primary); margin-bottom:24px; font-weight:500;" id="login-role-subtitle">Silakan masukkan data diri Anda</p>
+    <!-- CONTAINER LAMAN ADMIN -->
+    <div id="admin-page" class="app-page">
+      
+      <!-- NAVIGASI TAB ADMIN -->
+      <nav class="admin-nav-bar">
+        <button type="button" id="btn-admin-products" class="admin-nav-btn active" onclick="showAdminTab('products')">Daftar Produk</button>
+        <button type="button" id="btn-admin-priceView" class="admin-nav-btn" onclick="showAdminTab('priceView')">Lihat Harga & Margin</button>
+        <button type="button" id="btn-admin-suppliers" class="admin-nav-btn" onclick="showAdminTab('suppliers')">Data Supplier</button>
+        <button type="button" id="btn-admin-purchases" class="admin-nav-btn" onclick="showAdminTab('purchases')">Lihat Pembelian (PO)</button>
+        <button type="button" id="btn-admin-orders" class="admin-nav-btn" onclick="showAdminTab('orders')">Pesanan Pelanggan</button>
+      </nav>
 
-      <form id="login-form" onsubmit="handleLogin(event)">
-        <div class="input-group" style="text-align: left;">
-          <label id="login-user-label">Username Pelanggan</label>
-          <input type="text" id="login-username" placeholder="Masukkan Username..." required>
-        </div>
+      <!-- 1. TAB DAFTAR PRODUK & STOK -->
+      <section id="tab-admin-products" class="admin-tab-content">
+        <h3>Katalog & Stok Barang</h3>
+        <table class="admin-table">
+          <thead>
+            <tr>
+              <th>Foto</th>
+              <th>ID</th>
+              <th>Nama Produk</th>
+              <th>Harga Jual</th>
+              <th>Stok</th>
+              <th>Terjual</th>
+              <th>Rating</th>
+            </tr>
+          </thead>
+          <tbody id="tbody-products"></tbody>
+        </table>
+      </section>
 
-        <div class="input-group" style="text-align: left;">
-          <label id="login-email-label">Email</label>
-          <input type="email" id="login-email" placeholder="Masukkan Email..." required>
-        </div>
+      <!-- 2. TAB LIHAT HARGA & MARGIN -->
+      <section id="tab-admin-priceView" class="admin-tab-content" style="display:none;">
+        <h3>Rincian Harga Beli, Harga Jual & Profit Margin</h3>
+        <table class="admin-table">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Nama Produk</th>
+              <th>Harga Beli (Modal)</th>
+              <th>Harga Jual</th>
+              <th>Estimasi Margin</th>
+              <th>Supplier Utama</th>
+            </tr>
+          </thead>
+          <tbody id="tbody-price-view"></tbody>
+        </table>
+      </section>
 
-        <div class="input-group" style="text-align: left;">
-          <label id="login-phone-label">No. Telepon</label>
-          <input type="tel" id="login-phone" placeholder="Masukkan Nomor Telepon..." required>
-        </div>
+      <!-- 3. TAB DATA SUPPLIER -->
+      <section id="tab-admin-suppliers" class="admin-tab-content" style="display:none;">
+        <h3>Daftar Supplier Resmi</h3>
+        <table class="admin-table">
+          <thead>
+            <tr>
+              <th>ID Supplier</th>
+              <th>Nama Supplier</th>
+              <th>Kontak</th>
+              <th>Email</th>
+              <th>Alamat</th>
+            </tr>
+          </thead>
+          <tbody id="tbody-suppliers"></tbody>
+        </table>
+      </section>
 
-        <div class="input-group" style="text-align: left;">
-          <label>Password</label>
-          <input type="password" id="login-password" placeholder="Masukkan Password..." required>
-        </div>
+      <!-- 4. TAB LIHAT PEMBELIAN (PO) -->
+      <section id="tab-admin-purchases" class="admin-tab-content" style="display:none;">
+        <h3>Riwayat Pembelian Barang ke Supplier (Restock)</h3>
+        <table class="admin-table">
+          <thead>
+            <tr>
+              <th>No. PO</th>
+              <th>Tanggal</th>
+              <th>Supplier</th>
+              <th>Detail Item Pembelian</th>
+              <th>Total Transaksi</th>
+              <th>Status PO</th>
+            </tr>
+          </thead>
+          <tbody id="tbody-purchases"></tbody>
+        </table>
+      </section>
 
-        <button type="submit" class="btn btn-primary" style="margin-top: 10px;">Masuk Sekarang</button>
-        <button type="button" class="btn btn-outline" style="margin-top: 10px;" onclick="goToRoleSelection()"><i class="fa-solid fa-arrow-left"></i> Kembali Pilih Peran</button>
-      </form>
+      <!-- 5. TAB PESANAN PELANGGAN -->
+      <section id="tab-admin-orders" class="admin-tab-content" style="display:none;">
+        <h3>Daftar Pesanan Pelanggan</h3>
+        <table class="admin-table">
+          <thead>
+            <tr>
+              <th>ID Pesanan</th>
+              <th>Tanggal</th>
+              <th>Pelanggan</th>
+              <th>Detail Barang</th>
+              <th>Total Bayar</th>
+              <th>Metode Bayar</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody id="tbody-orders"></tbody>
+        </table>
+      </section>
+
     </div>
 
-    <!-- 1.5. HALAMAN WELCOMING -->
-    <div id="welcome-page" class="page landing-screen">
-      <div class="brand-logo"><i class="fa-solid fa-heart" style="font-size:42px;"></i></div>
-      <h2 style="color: var(--primary-dark); font-weight:800; font-size: 24px; margin-top: 10px;" id="welcome-heading">Selamat Datang!</h2>
-      <p style="font-size: 14px; color: var(--primary-dark); margin: 16px 0 30px; line-height: 1.5;" id="welcome-subtext"></p>
-      <button class="btn btn-primary" id="welcome-action-btn" onclick="proceedToMainApp()">
-        Masuk Ke Aplikasi <i class="fa-solid fa-arrow-right"></i>
-      </button>
-    </div>
+  </main>
 
-    <!-- 2. MARKETPLACE (PELANGGAN) -->
-    <div id="customer-home" class="page">
-      <div class="banner-slider">
-        <div>
-          <h3 style="font-size:17px; font-weight: 700;">Koleksi Heels Terbaru!</h3>
-          <p style="font-size:11px;">Diskon Spesial Up To 50% Semua Heels</p>
-        </div>
-        <i class="fa-solid fa-crown" style="font-size:38px;"></i>
-      </div>
-
-      <div class="section-header">
-        <span class="section-title">Koleksi Elegant Heels</span>
-        <span style="font-size:11px; color:var(--primary); font-weight:600;">Pilihan Terfavorit</span>
-      </div>
-
-      <div class="product-grid" id="customer-product-list"></div>
-    </div>
-
-    <!-- 3. DETAIL PRODUK -->
-    <div id="product-detail-page" class="page" style="padding:0;">
-      <div id="detail-content"></div>
-    </div>
-
-    <!-- 4. KERANJANG -->
-    <div id="cart-page" class="page">
-      <div id="cart-items-container"></div>
-      <div id="cart-footer" class="checkout-summary" style="display:none; margin-top:20px;">
-        <div class="summary-row total">
-          <span>Total</span>
-          <span id="cart-total-price">Rp 0</span>
-        </div>
-        <button class="btn btn-primary mt-10" onclick="navigateTo('checkout-page')">Lanjut Checkout</button>
-      </div>
-    </div>
-
-    <!-- 5. CHECKOUT -->
-    <div id="checkout-page" class="page">
-      <h3 style="font-size:14px; margin-bottom:12px; color:var(--primary-dark);">Alamat Pengiriman</h3>
-      <div style="background:rgba(255, 255, 255, 0.94); padding:12px; border-radius:var(--radius); margin-bottom:16px; font-size:12px; border:1px solid var(--border-light);">
-        <p style="font-weight:600;"><i class="fa-solid fa-location-dot" style="color:var(--primary);"></i> <span id="checkout-cust-name">Seraphine Azellie</span> | <span id="checkout-cust-phone">08123456789</span></p>
-        <p style="color:var(--text-muted); margin-top:4px;">Jl. Mawar No. 45, Kebayoran Baru, Jakarta Selatan</p>
-      </div>
-
-      <h3 style="font-size:14px; margin-bottom:12px; color:var(--primary-dark);">Rincian Pesanan</h3>
-      <div id="checkout-items"></div>
-
-      <h3 style="font-size:14px; margin-top:16px; margin-bottom:12px; color:var(--primary-dark);">Metode Pembayaran</h3>
-      <div class="input-group">
-        <select id="payment-method">
-          <option value="Transfer Bank (BCA/Mandiri)">Transfer Bank (BCA/Mandiri)</option>
-          <option value="E-Wallet (Gopay/ShopeePay)">E-Wallet (Gopay/ShopeePay)</option>
-          <option value="COD (Bayar di Tempat)">COD (Bayar di Tempat)</option>
-        </select>
-      </div>
-
-      <div class="checkout-summary">
-        <div class="summary-row">
-          <span>Subtotal Produk</span>
-          <span id="checkout-subtotal">Rp 0</span>
-        </div>
-        <div class="summary-row">
-          <span>Ongkos Kirim</span>
-          <span>Rp 15.000</span>
-        </div>
-        <div class="summary-row total">
-          <span>Total Pembayaran</span>
-          <span id="checkout-total">Rp 0</span>
-        </div>
-        <button class="btn btn-primary mt-10" onclick="processOrder()">Konfirmasi Pembayaran & Buat Pesanan</button>
-      </div>
-    </div>
-
-    <!-- 6. RIWAYAT PESANAN PELANGGAN -->
-    <div id="customer-orders-page" class="page">
-      <div id="customer-order-list"></div>
-    </div>
-
-    <!-- 7. PROFIL PELANGGAN -->
-    <div id="customer-profile-page" class="page">
-      <div class="profile-header">
-        <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=500&q=80" alt="Pelanggan" class="profile-img">
-        <span class="badge-store" style="display:inline-block; margin-bottom:6px;">PELANGGAN VIP</span>
-        <h3 style="font-size:16px;" id="profile-display-name">Seraphine Azellie</h3>
-        <p style="font-size:12px; color:var(--text-muted);" id="profile-display-email">seraphineazellie@gmail.com</p>
-      </div>
-
-      <div style="background:rgba(255, 255, 255, 0.94); padding:16px; border-radius:var(--radius); font-size:13px; display:flex; flex-direction:column; gap:12px; margin-bottom:16px; border:1px solid var(--border-light);">
-        <div>
-          <strong style="color:var(--text-muted); font-size:11px; display:block;">NOMOR TELEPON</strong>
-          <span id="profile-display-phone">08123456789</span>
-        </div>
-        <div>
-          <strong style="color:var(--text-muted); font-size:11px; display:block;">ALAMAT UTAMA</strong>
-          Jl. Mawar No. 45, Kebayoran Baru, Jakarta Selatan
-        </div>
-      </div>
-
-      <button class="btn btn-outline" style="border-color:#FF3B30; color:#FF3B30;" onclick="handleLogout()"><i class="fa-solid fa-right-from-bracket"></i> Keluar dari Akun</button>
-    </div>
-
-    <!-- 8. ADMIN DASHBOARD -->
-    <div id="admin-dashboard-page" class="page">
-      <div class="stats-grid">
-        <div class="stat-card">
-          <h4>Total Heels</h4>
-          <div class="value" id="stat-products">0</div>
-        </div>
-        <div class="stat-card">
-          <h4>Total Pesanan</h4>
-          <div class="value" id="stat-orders">0</div>
-        </div>
-        <div class="stat-card">
-          <h4>Total Supplier</h4>
-          <div class="value" id="stat-suppliers">0</div>
-        </div>
-        <div class="stat-card">
-          <h4>Penjualan</h4>
-          <div class="value" id="stat-sales">Rp 0</div>
-        </div>
-      </div>
-      <h3 style="font-size:14px; margin-bottom:12px; color:var(--primary-dark);"><i class="fa-solid fa-truck-ramp-box"></i> Pesanan Masuk (Lihat Pembelian)</h3>
-      <div id="admin-dashboard-recent-orders"></div>
-    </div>
-
-    <!-- 9. ADMIN INPUT PRODUK -->
-    <div id="admin-input-page" class="page">
-      <form id="product-form" onsubmit="saveProduct(event)">
-        <input type="hidden" id="input-prod-id">
-        <div class="input-group">
-          <label>URL Gambar Utama (Default)</label>
-          <input type="url" id="input-prod-img" placeholder="https://..." required>
-        </div>
-        <div class="input-group">
-          <label>Nama Heels</label>
-          <input type="text" id="input-prod-name" placeholder="Misal: Stiletto Velvet Heels" required>
-        </div>
-        <div class="input-group">
-          <label>Pilihan Warna (Pisahkan dengan koma)</label>
-          <input type="text" id="input-prod-colors" placeholder="PINK, HITAM, PUTIH, NUDE" required>
-        </div>
-        <div class="input-group">
-          <label>Harga Beli / Modal Supplier (Rp)</label>
-          <input type="number" id="input-prod-cost" placeholder="2000000" required>
-        </div>
-        <div class="input-group">
-          <label>Harga Jual Toko (Rp)</label>
-          <input type="number" id="input-prod-price" placeholder="2850000" required>
-        </div>
-        <div class="input-group">
-          <label>Pilih Supplier Pemasok</label>
-          <select id="input-prod-supplier" required></select>
-        </div>
-        <div class="input-group">
-          <label>Stok Produk</label>
-          <input type="number" id="input-prod-stock" required>
-        </div>
-        <div class="input-group">
-          <label>Deskripsi Lengkap Produk</label>
-          <textarea id="input-prod-desc" rows="4" required></textarea>
-        </div>
-        <button type="submit" class="btn btn-primary">Simpan Heels</button>
-      </form>
-    </div>
-
-    <!-- 10. ADMIN KELOLA PRODUK -->
-    <div id="admin-products-page" class="page">
-      <div id="admin-product-list"></div>
-    </div>
-
-    <!-- 10.5 ADMIN KELOLA SUPPLIER (Halaman Baru) -->
-    <div id="admin-suppliers-page" class="page">
-      <div style="background:rgba(255,255,255,0.94); padding:14px; border-radius:var(--radius); border:1px solid var(--border-light); margin-bottom:16px;">
-        <h4 style="font-size:14px; color:var(--primary); margin-bottom:10px;"><i class="fa-solid fa-plus-circle"></i> Tambah Supplier Baru</h4>
-        <form id="supplier-form" onsubmit="saveSupplier(event)">
-          <div class="input-group">
-            <label>Nama Perusahaan / Supplier</label>
-            <input type="text" id="sup-name" placeholder="PT Shoe Luxe Supplier" required>
-          </div>
-          <div class="input-group">
-            <label>No. Telepon / Kontak</label>
-            <input type="tel" id="sup-phone" placeholder="08123456789" required>
-          </div>
-          <div class="input-group">
-            <label>Alamat Supplier</label>
-            <input type="text" id="sup-address" placeholder="Jakarta Pusat" required>
-          </div>
-          <div class="input-group">
-            <label>Kategori Produk Pemasok</label>
-            <input type="text" id="sup-product" placeholder="Heels Import Italia" required>
-          </div>
-          <button type="submit" class="btn btn-primary"><i class="fa-solid fa-save"></i> Simpan Supplier</button>
-        </form>
-      </div>
-
-      <h4 style="font-size:14px; color:var(--primary-dark); margin-bottom:10px;"><i class="fa-solid fa-truck"></i> Daftar Supplier Terdaftar</h4>
-      <div id="admin-supplier-list"></div>
-    </div>
-
-    <!-- 11. ADMIN LAPORAN -->
-    <div id="admin-reports-page" class="page">
-      <div style="background: rgba(255, 255, 255, 0.94); padding: 12px; border-radius: var(--radius); margin-bottom: 12px; border-left: 4px solid var(--primary); box-shadow: var(--shadow-card);">
-        <div style="font-weight: 700; font-size: 13px; color: var(--text-dark);"><i class="fa-solid fa-store" style="color:var(--primary);"></i> Pretty Heels Store Official</div>
-        <div style="font-size: 11px; color: var(--text-muted); margin-top: 2px;" id="report-periode-text">Periode Laporan: Hari Ini</div>
-      </div>
-
-      <div class="role-selector" style="margin-bottom: 16px;">
-        <button class="role-btn active" onclick="switchReportTab('harian', this)">Harian</button>
-        <button class="role-btn" onclick="switchReportTab('bulanan', this)">Bulanan</button>
-        <button class="role-btn" onclick="switchReportTab('tahunan', this)">Tahunan</button>
-      </div>
-
-      <div class="checkout-summary" style="margin-top:0; margin-bottom: 16px;">
-        <h4 id="report-title" style="margin-bottom:12px; font-size:14px; color:var(--primary); border-bottom: 1px dashed var(--border-light); padding-bottom: 6px;">Ringkasan Laporan Harian</h4>
-        
-        <div class="summary-row">
-          <span><i class="fa-solid fa-receipt" style="color:var(--text-muted);"></i> Total Transaksi</span>
-          <span id="report-count" style="font-weight:600;">0 Pesanan</span>
-        </div>
-        <div class="summary-row">
-          <span><i class="fa-solid fa-boxes-packing" style="color:var(--text-muted);"></i> Produk Terjual</span>
-          <span id="report-items-sold" style="font-weight:600;">0 Pair</span>
-        </div>
-        <div class="summary-row">
-          <span><i class="fa-solid fa-money-bill-wave" style="color:var(--text-muted);"></i> Gross Omset</span>
-          <span id="report-gross" style="font-weight:600;">Rp 0</span>
-        </div>
-        <div class="summary-row" style="color: #e74c3c;">
-          <span><i class="fa-solid fa-percent"></i> Potongan Biaya Layanan (3%)</span>
-          <span id="report-fee">- Rp 0</span>
-        </div>
-        
-        <div class="summary-row total" style="margin-top: 8px; padding-top: 8px;">
-          <span><i class="fa-solid fa-wallet"></i> Pendapatan Bersih</span>
-          <span id="report-revenue" style="color:#27ae60; font-size:15px;">Rp 0</span>
-        </div>
-      </div>
-
-      <h4 style="font-size:13px; font-weight:700; margin-bottom:10px; color:var(--primary-dark);"><i class="fa-solid fa-list-check" style="color:var(--primary);"></i> Rincian Pembelian Produk</h4>
-      <div id="report-transaction-list"></div>
-    </div>
-
-    <!-- 12. ADMIN PROFIL -->
-    <div id="admin-profile-page" class="page">
-      <div class="profile-header">
-        <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=500&q=80" alt="Admin" class="profile-img">
-        <span class="badge-store" style="display:inline-block; margin-bottom:6px;">SUPER ADMIN & STORE MANAGER</span>
-        <h3 style="font-size:16px;" id="admin-profile-name">Hiraya Georgienne</h3>
-        <p style="font-size:12px; color:var(--text-muted);" id="admin-profile-email">hirayagienne@gmail.com</p>
-      </div>
-
-      <div class="admin-info-section">
-        <div class="admin-info-title"><i class="fa-solid fa-user-shield"></i> Detail Akun Manajerial</div>
-        <div class="info-list-item"><span>ID Pegawai</span><span>ADM-PHS-2026-001</span></div>
-        <div class="info-list-item"><span>No. Telepon Operational</span><span id="admin-profile-phone">082839103746</span></div>
-        <div class="info-list-item"><span>Cabang Wilayah</span><span>HQ Jakarta Selatan</span></div>
-      </div>
-
-      <button class="btn btn-outline" style="border-color:#FF3B30; color:#FF3B30;" onclick="handleLogout()"><i class="fa-solid fa-right-from-bracket"></i> Keluar dari Akun Admin</button>
-    </div>
-
-    <!-- POP-UP MODAL VARIASI WARNA -->
-    <div id="variant-sheet-modal" class="modal-overlay">
-      <div class="modal-sheet">
-        <div style="display:flex; gap:12px; border-bottom:1px solid var(--border-light); padding-bottom:12px; margin-bottom:12px;">
-          <img id="sheet-prod-img" src="" style="width:75px; height:75px; object-fit:cover; border-radius:10px;" alt="Produk">
-          <div style="flex:1;">
-            <button onclick="closeVariantSheet()" style="float:right; border:none; background:none; font-size:18px; color:#888; cursor:pointer;">&times;</button>
-            <div id="sheet-prod-price" style="color:var(--primary); font-weight:700; font-size:16px;">Rp 0</div>
-            <div id="sheet-prod-stock" style="font-size:11px; color:#777; margin-top:2px;">Stok: 0</div>
-          </div>
-        </div>
-
-        <label style="font-size:12px; font-weight:600; color:var(--text-dark);">Pilih Warna</label>
-        <div class="variant-grid" id="sheet-variant-options"></div>
-
-        <div class="flex-between" style="margin-top:16px; margin-bottom:20px;">
-          <label style="font-size:12px; font-weight:600; color:var(--text-dark);">Jumlah Pair</label>
-          <div class="qty-control">
-            <button class="qty-btn" onclick="updateSheetQty(-1)">-</button>
-            <span class="qty-val" id="sheet-qty-val">1</span>
-            <button class="qty-btn" onclick="updateSheetQty(1)">+</button>
-          </div>
-        </div>
-
-        <button class="btn btn-primary" id="sheet-action-btn" style="font-size:15px; border-radius:10px;" onclick="confirmSheetAction()">Beli Sekarang</button>
-      </div>
-    </div>
-
-    <!-- BOTTOM NAVIGATION BAR -->
-    <nav class="bottom-nav" id="main-nav" style="display:none;"></nav>
-
-  </div>
-
+  <!-- PANGGIL SELURUH 7 FILE SCRIPT JS SECARA BERURUTAN -->
   <script src="data.js"></script>
   <script src="app.js"></script>
   <script src="login.js"></script>

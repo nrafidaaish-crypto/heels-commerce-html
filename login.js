@@ -41,7 +41,7 @@ function handleLogin(e) {
   const p = document.getElementById('login-password').value.trim();
 
   if (selectedRole === 'admin') {
-    if (u === 'Hiraya Georgienne' && p === 'prettyheels' && email === 'hirayagienne@gmail.com' && phone === '0828') {
+    if (u === 'hiraya georgienne' && p === 'prettyheels' && email === 'hirayagienne@gmail.com' && phone === '0828') {
       currentUser = { 
         role: 'admin', 
         name: 'hiraya georgienne',

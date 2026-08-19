@@ -8,7 +8,7 @@ let products = [
   {
     id: 1,
     name: "Heels Lady Dior Mules dengan aksesoris Satin Merah Muda dan berlian",
-    price: 285000,
+    price: 285000000,
     stock: 50,
     rating: 4.9,
     sold: 1894,
@@ -29,7 +29,7 @@ let products = [
   {
     id: 2,
     name: "Saint Laurent Opyum Pumps Heels berwarna Burgundy dengan Tumit Logo YSL",
-    price: 320000,
+    price: 320000000,
     stock: 35,
     rating: 5.0,
     sold: 1420,
@@ -49,7 +49,7 @@ let products = [
   {
     id: 3,
     name: "Valentino Garavani Vlogo heels",
-    price: 195000,
+    price: 195000000,
     stock: 60,
     rating: 4.8,
     sold: 2130,
@@ -68,7 +68,7 @@ let products = [
   {
     id: 4,
     name: "Prada Catwalk Heels putih dengan pita biru muda soft",
-    price: 450000,
+    price: 450000000,
     stock: 28,
     rating: 4.7,
     sold: 9215,
@@ -87,7 +87,7 @@ let products = [
   {
     id: 5,
     name: "Gucci Heels dengan aksen Maroon dan rantai emas", 
-    price: 260000,
+    price: 260000000,
     stock: 40,
     rating: 4.9,
     sold: 1650,
@@ -105,7 +105,7 @@ let products = [
   {
     id: 6,
     name: "Valentino Garavani Pointed Slingbacks dengan Pita & VLogo",
-    price: 380000,
+    price: 380000000,
     stock: 20,
     rating: 5.0,
     sold: 8875,
@@ -123,7 +123,7 @@ let products = [
   {
     id: 7,
     name: "Satin Ribbon Bow Slingback Heels 8cm",
-    price: 310000,
+    price: 310000000,
     stock: 3500,
     rating: 4.9,
     sold: 6370,
@@ -140,35 +140,35 @@ let products = [
   },
   {
     id: 8,
-    name: "Glitter Sequin Prom High Heels 10cm",
-    price: 350000,
+    name: "HEELS dior cute ",
+    price: 350000000,
     stock: 22,
     rating: 4.8,
-    sold: 110,
-    colors: ["GOLD", "SILVER"],
+    sold: 1100,
+    colors: ["GREEN", "PINK"],
     colorMap: {
-      "GOLD": "https://images.unsplash.com/photo-1525966222134-fcfa99b8ae77?auto=format&fit=crop&w=500&q=80",
-      "SILVER": "https://images.unsplash.com/photo-1531310197839-ccf54634509e?auto=format&fit=crop&w=500&q=80"
+      "GREEN": "matchadior.jpg",
+      "PINK": "matchadior.jpg"
     },
-    img: "https://images.unsplash.com/photo-1525966222134-fcfa99b8ae77?auto=format&fit=crop&w=500&q=80",
+    img: "matchadior.jpg",
     desc: "Dibalut lapisan glitter mengkilap yang berkilau indah saat terkena pencahayaan pesta.",
     reviews: [
-      { name: "Lianna Felicia", rating: 5, date: "04 Ags 2026", variant: "Warna: GOLD", comment: "Sangat bersinar saat dipakai malam hari di party venue!" }
+      { name: "Lianna Felicia", rating: 5, date: "14 Mei 2026", variant: "Warna: GREEN", comment: "Perpaduan warna nya sweet dan cute banget cocok untuk dipakai ke acara acara santai" }
     ]
   },
   {
     id: 9,
     name: "Minimalist Clear Strap Mule Heels 6cm",
-    price: 225000,
+    price: 225000090,
     stock: 45,
     rating: 4.7,
     sold: 198,
     colors: ["CLEAR", "NUDE"],
     colorMap: {
-      "CLEAR": "https://images.unsplash.com/photo-1511556532299-8f662fc26c06?auto=format&fit=crop&w=500&q=80",
-      "NUDE": "https://images.unsplash.com/photo-1535043934128-cf0b28d52f95?auto=format&fit=crop&w=500&q=80"
+      "CLEAR": " channel.jpg",
+      "NUDE": "channel.jpg"
     },
-    img: "https://images.unsplash.com/photo-1511556532299-8f662fc26c06?auto=format&fit=crop&w=500&q=80",
+    img: "channel.jpg",
     desc: "Tren bening transparan dengan tali mika premium lentur yang tidak menimbulkan bekas di kulit.",
     reviews: [
       { name: "Shafira Aris", rating: 5, date: "06 Ags 2026", variant: "Warna: CLEAR", comment: "Tali beningnya lentur, gak sakit sama sekali pas dipakai jalan." }
@@ -176,20 +176,20 @@ let products = [
   },
   {
     id: 10,
-    name: "Suede Cross-Strap Chunky Heels 7cm",
-    price: 275000,
+    name: "Prada vintage Cross-Strap Chunky Heels 7cm",
+    price: 275000000,
     stock: 38,
     rating: 4.9,
     sold: 140,
     colors: ["BLACK", "BROWN"],
     colorMap: {
-      "BLACK": "https://images.unsplash.com/photo-1608256246200-53e635b5b65f?auto=format&fit=crop&w=500&q=80",
-      "BROWN": "https://images.unsplash.com/photo-1515347619252-60a4bf4fff4f?auto=format&fit=crop&w=500&q=80"
+      "BLACK": "prada.jpg",
+      "BROWN": "prada.jpg"
     },
-    img: "https://images.unsplash.com/photo-1608256246200-53e635b5b65f?auto=format&fit=crop&w=500&q=80",
-    desc: "Desain tali silang bergaya vintage berbahan suede premium dengan ketahanan ekstra.",
+    img: "prada.jpg",
+    desc: "Desain tali silang bergaya vintage berbahan kulit premium dengan ketahanan ekstra.",
     reviews: [
-      { name: "Aurelia Cinta", rating: 5, date: "03 Ags 2026", variant: "Warna: BLACK", comment: "Suka banget sama model tali silangnya, terkesan ramping di kaki." }
+      { name: "Aurelia Cinta", rating: 5, date: "30 Nov 2026", variant: "Warna: BLACK", comment: "Suka banget sama model tali silangnya, terkesan ramping di kaki." }
     ]
   }
 ];

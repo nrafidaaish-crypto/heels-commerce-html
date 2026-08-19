@@ -1,5 +1,3 @@
-// FITUR INTERAKSI PELANGGAN (KATALOG, DETAIL, KERANJANG, CHECKOUT, RIWAYAT)
-
 function renderCustomerProducts() {
   const grid = document.getElementById('customer-product-list');
   if (!grid) return;

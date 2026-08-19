@@ -1,5 +1,3 @@
-// UTILITAS UMUM & NAVIGASI APLIKASI
-
 function showToast(message) {
   const toast = document.getElementById('toast');
   document.getElementById('toast-text').innerText = message;
@@ -55,10 +53,15 @@ function navigateTo(pageId, pushToHistory = true) {
       break;
     case 'admin-input-page':
       pageTitleEl.innerText = document.getElementById('input-prod-id').value ? "Edit Heels" : "Input Heels Baru";
+      populateSupplierDropdown();
       break;
     case 'admin-products-page':
       pageTitleEl.innerText = "Kelola Produk Heels";
       renderAdminProducts();
+      break;
+    case 'admin-suppliers-page':
+      pageTitleEl.innerText = "Kelola Supplier";
+      renderAdminSuppliers();
       break;
     case 'admin-reports-page':
       pageTitleEl.innerText = "Laporan Penjualan";
@@ -92,8 +95,8 @@ function updateNavActiveState(pageId) {
     if (pageId === 'admin-dashboard-page') navs[0]?.classList.add('active');
     if (pageId === 'admin-input-page') navs[1]?.classList.add('active');
     if (pageId === 'admin-products-page') navs[2]?.classList.add('active');
-    if (pageId === 'admin-reports-page') navs[3]?.classList.add('active');
-    if (pageId === 'admin-profile-page') navs[4]?.classList.add('active');
+    if (pageId === 'admin-suppliers-page') navs[3]?.classList.add('active');
+    if (pageId === 'admin-reports-page') navs[4]?.classList.add('active');
   }
 }
 
@@ -122,15 +125,9 @@ function setupLayoutForUser() {
       <button class="nav-item" onclick="navigateTo('admin-dashboard-page')"><i class="fa-solid fa-chart-pie"></i>Dashboard</button>
       <button class="nav-item" onclick="resetForm(); navigateTo('admin-input-page')"><i class="fa-solid fa-plus-circle"></i>Input</button>
       <button class="nav-item" onclick="navigateTo('admin-products-page')"><i class="fa-solid fa-boxes-stacked"></i>Produk</button>
+      <button class="nav-item" onclick="navigateTo('admin-suppliers-page')"><i class="fa-solid fa-truck"></i>Supplier</button>
       <button class="nav-item" onclick="navigateTo('admin-reports-page')"><i class="fa-solid fa-file-invoice"></i>Laporan</button>
-      <button class="nav-item" onclick="navigateTo('admin-profile-page')"><i class="fa-solid fa-user-gear"></i>Profil Admin</button>
     `;
-    const nameAdmin = document.getElementById('admin-profile-name');
-    const emailAdmin = document.getElementById('admin-profile-email');
-    const phoneAdmin = document.getElementById('admin-profile-phone');
-    if (nameAdmin) nameAdmin.innerText = currentUser.name;
-    if (emailAdmin) emailAdmin.innerText = currentUser.email;
-    if (phoneAdmin) phoneAdmin.innerText = currentUser.phone;
   }
 }
 
@@ -139,7 +136,6 @@ function updateCartBadge() {
   document.getElementById('cart-badge-count').innerText = totalQty;
 }
 
-// FUNGSI SHEET VARIASI WARNA MODAL
 function openSheetGeneric(productObj, currentColor, currentQty, buttonLabel) {
   selectedDetailProduct = productObj;
   selectedColor = currentColor || productObj.colors[0];

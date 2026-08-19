@@ -1,5 +1,3 @@
-// LOGIKA AKUN & AUTENTIKASI (LOGIN / LOGOUT / PERAN)
-
 function chooseRole(role) {
   selectedRole = role;
   const roleTitle = document.getElementById('login-role-title');

@@ -3,192 +3,393 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Pretty Heels</title>
-  <link rel="stylesheet" href="style.css">
+  <title>Pretty Heels - Store & Admin</title>
+
+  <!-- Font & Icon CDN -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,800;1,600&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
   <div id="app-container">
-    <!-- TOAST NOTIFIKASI -->
-    <div id="toast"><i class="fa-solid fa-circle-check"></i> <span id="toast-text">Notifikasi</span></div>
 
-    <!-- HEADER STICKY -->
-    <header class="sticky-header">
-      <h1 class="header-title">Pretty Heels</h1>
-      <button class="cart-icon-btn" onclick="switchPage('cart')">
-        <i class="fa-solid fa-bag-shopping"></i>
-        <span class="cart-badge" id="cart-count">0</span>
-      </button>
+    <!-- TOAST NOTIFIKASI -->
+    <div id="toast">
+      <i class="fa-solid fa-circle-check"></i>
+      <span id="toast-text">Notifikasi</span>
+    </div>
+
+    <!-- HEADER UTAMA APPLIKASI -->
+    <header id="main-header" class="sticky-header" style="display: none;">
+      <div style="display: flex; align-items: center; gap: 10px;">
+        <button id="back-btn" onclick="goBack()" style="background:none; border:none; color:white; font-size:18px; cursor:pointer; display:none;">
+          <i class="fa-solid fa-arrow-left"></i>
+        </button>
+        <h1 id="page-title" class="header-title">Pretty Heels Store</h1>
+      </div>
+      <div id="header-actions">
+        <button class="cart-icon-btn" onclick="navigateTo('cart-page')">
+          <i class="fa-solid fa-bag-shopping"></i>
+          <span id="cart-badge-count" class="cart-badge">0</span>
+        </button>
+      </div>
     </header>
 
-    <main>
-      <!-- HALAMAN LANDING (PILIH ROLE) -->
-      <section id="page-landing" class="page landing-screen active">
-        <div class="brand-logo"><i class="fa-solid fa-shoe-prints"></i></div>
-        <h2 style="font-size: 22px; color: var(--primary-dark); margin-bottom: 8px;">Selamat Datang</h2>
-        <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 24px;">Pilih mode akses untuk melanjutkan</p>
-        
-        <div class="role-card-btn" onclick="selectRole('customer')">
-          <div class="role-icon-box"><i class="fa-solid fa-store"></i></div>
-          <div style="text-align: left;">
-            <h4 style="font-size: 14px; color: var(--primary-dark);">Mode Pembeli</h4>
-            <p style="font-size: 11px; color: var(--text-muted);">Jelajahi koleksi heels premium</p>
-          </div>
-        </div>
+    <!-- ==================== CONTAINER HALAMAN (PAGES) ==================== -->
 
-        <div class="role-card-btn" onclick="selectRole('admin')">
-          <div class="role-icon-box"><i class="fa-solid fa-user-gear"></i></div>
-          <div style="text-align: left;">
-            <h4 style="font-size: 14px; color: var(--primary-dark);">Mode Admin</h4>
-            <p style="font-size: 11px; color: var(--text-muted);">Kelola stok, harga & laporan</p>
-          </div>
-        </div>
-      </section>
+    <!-- 1. SELEKSI ROLE (LANDING) -->
+    <div id="role-selection-page" class="page landing-screen active">
+      <div class="brand-logo">
+        <i class="fa-solid fa-shoe-prints"></i>
+      </div>
+      <h2 style="font-size: 24px; color: var(--primary); margin-bottom: 6px;">Pretty Heels</h2>
+      <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 28px;">Luxury & Elegant Footwear Collection</p>
 
-      <!-- HALAMAN TOKO (CUSTOMER) -->
-      <section id="page-store" class="page">
-        <div class="banner-slider">
-          <div>
-            <h3>Koleksi Luxury 2026</h3>
-            <p style="font-size: 12px;">Diskon khusus member hingga 20%</p>
-          </div>
-          <i class="fa-solid fa-gem" style="font-size: 40px; opacity: 0.8;"></i>
+      <div class="role-card-btn" onclick="chooseRole('customer')">
+        <div class="role-icon-box"><i class="fa-solid fa-user"></i></div>
+        <div style="text-align: left;">
+          <h4 style="font-size: 14px; color: var(--text-dark);">Masuk Pelanggan</h4>
+          <p style="font-size: 11px; color: var(--text-muted);">Jelajahi katalog dan pesan heels favoritmu</p>
         </div>
+      </div>
 
-        <div class="input-group">
-          <input type="text" id="customer-search" placeholder="Cari heels favoritmu..." oninput="filterProducts()">
+      <div class="role-card-btn" onclick="chooseRole('admin')">
+        <div class="role-icon-box"><i class="fa-solid fa-user-shield"></i></div>
+        <div style="text-align: left;">
+          <h4 style="font-size: 14px; color: var(--text-dark);">Masuk Admin Store</h4>
+          <p style="font-size: 11px; color: var(--text-muted);">Kelola stok, supplier, harga, dan laporan</p>
         </div>
-
-        <div class="section-header">
-          <span class="section-title">Katalog Produk</span>
-        </div>
-        <div id="customer-product-grid" class="product-grid"></div>
-      </section>
-
-      <!-- HALAMAN KERANJANG -->
-      <section id="page-cart" class="page">
-        <div class="section-header">
-          <span class="section-title">Keranjang Belanja</span>
-        </div>
-        <div id="cart-items-container"></div>
-        <div class="checkout-summary">
-          <div class="summary-row total">
-            <span>Total Bayar</span>
-            <span id="cart-total-amount">Rp 0</span>
-          </div>
-          <button class="btn btn-primary mt-10" onclick="checkoutCart()">Checkout Sekarang</button>
-        </div>
-      </section>
-
-      <!-- HALAMAN ADMIN -->
-      <section id="page-admin" class="page">
-        <div class="section-header">
-          <span class="section-title">Dashboard Admin</span>
-          <span class="badge-info" id="admin-user-badge">Guest</span>
-        </div>
-
-        <div class="admin-nav-bar">
-          <button class="admin-nav-btn active" onclick="showAdminTab('products', this)">Stok Produk</button>
-          <button class="admin-nav-btn" onclick="showAdminTab('priceView', this)">Margin & Harga</button>
-          <button class="admin-nav-btn" onclick="showAdminTab('suppliers', this)">Data Supplier</button>
-          <button class="admin-nav-btn" onclick="showAdminTab('purchases', this)">Restock (PO)</button>
-          <button class="admin-nav-btn" onclick="showAdminTab('orders', this)">Pesanan</button>
-        </div>
-
-        <div id="tab-admin-products" class="admin-tab-content">
-          <h3>Katalog & Stok Barang</h3>
-          <table class="admin-table">
-            <thead>
-              <tr><th>Foto</th><th>Nama Produk</th><th>Harga Jual</th><th>Stok</th></tr>
-            </thead>
-            <tbody id="tbody-products"></tbody>
-          </table>
-        </div>
-
-        <div id="tab-admin-priceView" class="admin-tab-content" style="display:none;">
-          <h3>Rincian Margin Keuntungan</h3>
-          <table class="admin-table">
-            <thead>
-              <tr><th>Nama Produk</th><th>Modal</th><th>Harga Jual</th><th>Margin</th></tr>
-            </thead>
-            <tbody id="tbody-price-view"></tbody>
-          </table>
-        </div>
-
-        <div id="tab-admin-suppliers" class="admin-tab-content" style="display:none;">
-          <h3>Daftar Supplier</h3>
-          <table class="admin-table">
-            <thead>
-              <tr><th>ID</th><th>Nama Supplier</th><th>Kontak</th></tr>
-            </thead>
-            <tbody id="tbody-suppliers"></tbody>
-          </table>
-        </div>
-
-        <div id="tab-admin-purchases" class="admin-tab-content" style="display:none;">
-          <h3>Riwayat Restock (PO)</h3>
-          <table class="admin-table">
-            <thead>
-              <tr><th>No. PO</th><th>Supplier</th><th>Total</th><th>Status</th></tr>
-            </thead>
-            <tbody id="tbody-purchases"></tbody>
-          </table>
-        </div>
-
-        <div id="tab-admin-orders" class="admin-tab-content" style="display:none;">
-          <h3>Pesanan Pelanggan</h3>
-          <table class="admin-table">
-            <thead>
-              <tr><th>ID</th><th>Pelanggan</th><th>Total</th><th>Status</th></tr>
-            </thead>
-            <tbody id="tbody-orders"></tbody>
-          </table>
-        </div>
-      </section>
-    </main>
-
-    <!-- BOTTOM NAVIGATION BAR -->
-    <nav class="bottom-nav">
-      <button class="nav-item active" onclick="switchPage('landing')" id="nav-landing">
-        <i class="fa-solid fa-house"></i>
-        <span>Beranda</span>
-      </button>
-      <button class="nav-item" onclick="switchPage('store')" id="nav-store">
-        <i class="fa-solid fa-bag-shopping"></i>
-        <span>Toko</span>
-      </button>
-      <button class="nav-item" onclick="switchPage('admin')" id="nav-admin">
-        <i class="fa-solid fa-chart-line"></i>
-        <span>Admin</span>
-      </button>
-      <button class="nav-item" onclick="openLoginModal()" id="nav-login">
-        <i class="fa-solid fa-user"></i>
-        <span>Akun</span>
-      </button>
-    </nav>
-  </div>
-
-  <!-- MODAL LOGIN -->
-  <div id="login-modal" class="modal-overlay">
-    <div class="modal-sheet">
-      <h3 style="margin-bottom: 14px; color: var(--primary-dark);">Login Akun</h3>
-      <form onsubmit="handleLogin(event)">
-        <div class="input-group">
-          <label>Username</label>
-          <input type="text" id="login-username" required placeholder="Masukkan username">
-        </div>
-        <div class="input-group">
-          <label>Password</label>
-          <input type="password" id="login-password" required placeholder="Masukkan password">
-        </div>
-        <button type="submit" class="btn btn-primary">Masuk</button>
-        <button type="button" class="btn btn-outline mt-10" onclick="closeLoginModal()">Batal</button>
-      </form>
+      </div>
     </div>
+
+    <!-- 2. HALAMAN LOGIN -->
+    <div id="login-page" class="page">
+      <div style="padding: 20px 0;">
+        <button onclick="goToRoleSelection()" style="background:none; border:none; color:var(--primary); font-size:14px; cursor:pointer; font-weight:600; margin-bottom:16px;">
+          <i class="fa-solid fa-arrow-left"></i> Kembali Pilih Role
+        </button>
+        <h2 id="login-role-title" style="font-size: 20px; color: var(--primary);">Login Pelanggan</h2>
+        <p id="login-role-subtitle" style="font-size: 12px; color: var(--text-muted); margin-bottom: 20px;">Silakan masukkan akun Anda</p>
+
+        <form onsubmit="handleLogin(event)">
+          <div class="input-group">
+            <label id="login-user-label">Username</label>
+            <input type="text" id="login-username" placeholder="Masukkan username..." required>
+          </div>
+          <div class="input-group">
+            <label>Email</label>
+            <input type="email" id="login-email" placeholder="nama@email.com">
+          </div>
+          <div class="input-group">
+            <label>No. HP / Telepon</label>
+            <input type="tel" id="login-phone" placeholder="08xxxxxxxxxx">
+          </div>
+          <div class="input-group">
+            <label>Password</label>
+            <input type="password" id="login-password" placeholder="••••••••" required>
+          </div>
+
+          <button type="submit" class="btn btn-primary" style="margin-top: 20px;">Masuk Sekarang</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- 3. HALAMAN WELCOME -->
+    <div id="welcome-page" class="page landing-screen">
+      <div class="brand-logo" style="width:80px; height:80px; font-size:36px;">
+        <i class="fa-solid fa-heart"></i>
+      </div>
+      <h2 id="welcome-heading" style="color:var(--primary); font-size:22px; margin-bottom:10px;">Selamat Datang!</h2>
+      <p id="welcome-subtext" style="font-size:13px; color:var(--text-muted); margin-bottom:30px; line-height:1.5;"></p>
+      <button class="btn btn-primary" onclick="proceedToMainApp()">Masuk Aplikasi <i class="fa-solid fa-arrow-right"></i></button>
+    </div>
+
+    <!-- 4. CUSTOMER HOME -->
+    <div id="customer-home" class="page">
+      <div class="banner-slider">
+        <div>
+          <h3>Pretty Heels Collection</h3>
+          <p style="font-size:11px;">Diskon Eksklusif Hingga 30% Hari Ini!</p>
+        </div>
+        <i class="fa-solid fa-crown" style="font-size: 38px; opacity:0.8;"></i>
+      </div>
+
+      <div class="section-header">
+        <h3 class="section-title">Katalog Heels Terbaru</h3>
+      </div>
+
+      <div id="customer-product-list" class="product-grid"></div>
+    </div>
+
+    <!-- 5. PRODUCT DETAIL PAGE -->
+    <div id="product-detail-page" class="page" style="padding:0;">
+      <div id="detail-content"></div>
+    </div>
+
+    <!-- 6. CART PAGE -->
+    <div id="cart-page" class="page">
+      <div id="cart-items-container"></div>
+      <div id="cart-footer" class="checkout-summary" style="display:none;">
+        <div class="summary-row total">
+          <span>Total Tagihan:</span>
+          <span id="cart-total-price">Rp 0</span>
+        </div>
+        <button class="btn btn-primary mt-10" onclick="navigateTo('checkout-page')">Lanjut ke Checkout <i class="fa-solid fa-arrow-right"></i></button>
+      </div>
+    </div>
+
+    <!-- 7. CHECKOUT PAGE -->
+    <div id="checkout-page" class="page">
+      <div class="admin-info-section">
+        <div class="admin-info-title"><i class="fa-solid fa-location-dot"></i> Alamat Pengiriman</div>
+        <div style="font-size:12px; line-height:1.4;">
+          <strong id="checkout-cust-name">Seraphine Azellie</strong> (<span id="checkout-cust-phone">08123456789</span>)<br>
+          <span style="color:var(--text-muted);">Jl. Senopati No. 88, Kebayoran Baru, Jakarta Selatan</span>
+        </div>
+      </div>
+
+      <h4 style="font-size:13px; margin-bottom:10px;">Ringkasan Pesanan</h4>
+      <div id="checkout-items"></div>
+
+      <div class="input-group" style="margin-top:14px;">
+        <label>Metode Pembayaran</label>
+        <select id="payment-method">
+          <option value="Transfer Bank (BCA)">Transfer Bank (BCA)</option>
+          <option value="Transfer Bank (Mandiri)">Transfer Bank (Mandiri)</option>
+          <option value="E-Wallet (Gopay)">E-Wallet (Gopay)</option>
+          <option value="E-Wallet (ShopeePay)">E-Wallet (ShopeePay)</option>
+          <option value="COD (Bayar di Tempat)">COD (Bayar di Tempat)</option>
+        </select>
+      </div>
+
+      <div class="checkout-summary">
+        <div class="summary-row"><span>Subtotal Produk:</span><span id="checkout-subtotal">Rp 0</span></div>
+        <div class="summary-row"><span>Ongkos Kirim:</span><span>Rp 15.000</span></div>
+        <div class="summary-row total"><span>Total Pembayaran:</span><span id="checkout-total">Rp 0</span></div>
+        <button class="btn btn-primary mt-10" onclick="processOrder()">Konfirmasi & Bayar</button>
+      </div>
+    </div>
+
+    <!-- 8. CUSTOMER ORDERS PAGE -->
+    <div id="customer-orders-page" class="page">
+      <div id="customer-order-list"></div>
+    </div>
+
+    <!-- 9. CUSTOMER PROFILE PAGE -->
+    <div id="customer-profile-page" class="page">
+      <div class="profile-header">
+        <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=200" class="profile-img" alt="Profile">
+        <h3 id="profile-display-name" style="font-size:16px;">Seraphine Azellie</h3>
+        <p style="font-size:11px; color:var(--text-muted);">Member VIP Pretty Heels</p>
+      </div>
+
+      <div class="admin-info-section">
+        <div class="admin-info-title">Informasi Akun</div>
+        <div class="info-list-item"><span>Email:</span><span id="profile-display-email">seraphineazellie@gmail.com</span></div>
+        <div class="info-list-item"><span>No. HP:</span><span id="profile-display-phone">08123456789</span></div>
+        <div class="info-list-item"><span>Status:</span><span style="color:#27ae60;">Aktif</span></div>
+      </div>
+
+      <button class="btn btn-outline" onclick="handleLogout()" style="color:#e74c3c; border-color:#e74c3c;"><i class="fa-solid fa-right-from-bracket"></i> Keluar / Logout</button>
+    </div>
+
+    <!-- 10. ADMIN DASHBOARD PAGE -->
+    <div id="admin-dashboard-page" class="page">
+      <div class="stats-grid">
+        <div class="stat-card">
+          <h4>Total Penjualan</h4>
+          <div class="value">Rp 2.12B</div>
+        </div>
+        <div class="stat-card">
+          <h4>Total Produk</h4>
+          <div class="value">10 Jenis</div>
+        </div>
+      </div>
+
+      <!-- NAVIGASI TAB ADMIN -->
+      <nav class="admin-nav-bar">
+        <button type="button" id="btn-admin-products" class="admin-nav-btn active" onclick="showAdminTab('products')">Daftar Produk</button>
+        <button type="button" id="btn-admin-priceView" class="admin-nav-btn" onclick="showAdminTab('priceView')">Harga & Margin</button>
+        <button type="button" id="btn-admin-suppliers" class="admin-nav-btn" onclick="showAdminTab('suppliers')">Supplier</button>
+        <button type="button" id="btn-admin-purchases" class="admin-nav-btn" onclick="showAdminTab('purchases')">Pembelian (PO)</button>
+        <button type="button" id="btn-admin-orders" class="admin-nav-btn" onclick="showAdminTab('orders')">Pesanan</button>
+      </nav>
+
+      <!-- TAB CONTENT -->
+      <section id="tab-admin-products" class="admin-tab-content">
+        <h3>Katalog & Stok Barang</h3>
+        <table class="admin-table">
+          <thead>
+            <tr>
+              <th>Foto</th>
+              <th>ID</th>
+              <th>Nama Produk</th>
+              <th>Harga Jual</th>
+              <th>Stok</th>
+              <th>Terjual</th>
+              <th>Rating</th>
+            </tr>
+          </thead>
+          <tbody id="tbody-products"></tbody>
+        </table>
+      </section>
+
+      <section id="tab-admin-priceView" class="admin-tab-content" style="display:none;">
+        <h3>Rincian Harga Beli, Jual & Profit Margin</h3>
+        <table class="admin-table">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Nama Produk</th>
+              <th>Modal</th>
+              <th>Harga Jual</th>
+              <th>Margin</th>
+              <th>Supplier Utama</th>
+            </tr>
+          </thead>
+          <tbody id="tbody-price-view"></tbody>
+        </table>
+      </section>
+
+      <section id="tab-admin-suppliers" class="admin-tab-content" style="display:none;">
+        <h3>Daftar Supplier Resmi</h3>
+        <table class="admin-table">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Nama Supplier</th>
+              <th>Kontak</th>
+              <th>Email</th>
+              <th>Alamat</th>
+            </tr>
+          </thead>
+          <tbody id="tbody-suppliers"></tbody>
+        </table>
+      </section>
+
+      <section id="tab-admin-purchases" class="admin-tab-content" style="display:none;">
+        <h3>Riwayat Pembelian (PO)</h3>
+        <table class="admin-table">
+          <thead>
+            <tr>
+              <th>No. PO</th>
+              <th>Tanggal</th>
+              <th>Supplier</th>
+              <th>Detail Item</th>
+              <th>Total</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody id="tbody-purchases"></tbody>
+        </table>
+      </section>
+
+      <section id="tab-admin-orders" class="admin-tab-content" style="display:none;">
+        <h3>Pesanan Pelanggan</h3>
+        <table class="admin-table">
+          <thead>
+            <tr>
+              <th>ID Pesanan</th>
+              <th>Tanggal</th>
+              <th>Pelanggan</th>
+              <th>Detail Barang</th>
+              <th>Total</th>
+              <th>Metode</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody id="tbody-orders"></tbody>
+        </table>
+      </section>
+    </div>
+
+    <!-- 11. ADMIN INPUT PAGE -->
+    <div id="admin-input-page" class="page">
+      <input type="hidden" id="input-prod-id">
+      <div class="input-group">
+        <label>Nama Produk Heels</label>
+        <input type="text" id="input-prod-name" placeholder="Contoh: Dior Satin Heels">
+      </div>
+      <div class="input-group">
+        <label>Harga Beli / Modal (Rp)</label>
+        <input type="number" id="input-prod-cost" placeholder="200000000">
+      </div>
+      <div class="input-group">
+        <label>Harga Jual (Rp)</label>
+        <input type="number" id="input-prod-price" placeholder="285000000">
+      </div>
+      <div class="input-group">
+        <label>Stok Barang</label>
+        <input type="number" id="input-prod-stock" placeholder="50">
+      </div>
+      <button class="btn btn-primary" onclick="showToast('Fitur simpan produk berhasil!')">Simpan Produk</button>
+    </div>
+
+    <!-- 12. ADMIN PRODUCTS PAGE -->
+    <div id="admin-products-page" class="page">
+      <h3>Kelola Produk Heels</h3>
+      <p style="font-size:12px; color:var(--text-muted); margin-bottom:12px;">Daftar lengkap produk yang terdaftar di toko.</p>
+    </div>
+
+    <!-- 13. ADMIN SUPPLIERS PAGE -->
+    <div id="admin-suppliers-page" class="page">
+      <h3>Kelola Supplier</h3>
+      <p style="font-size:12px; color:var(--text-muted); margin-bottom:12px;">Daftar mitra supplier resmi Pretty Heels.</p>
+    </div>
+
+    <!-- 14. ADMIN REPORTS PAGE -->
+    <div id="admin-reports-page" class="page">
+      <h3>Laporan Penjualan</h3>
+      <p style="font-size:12px; color:var(--text-muted);">Rekapitulasi transaksi harian, bulanan, dan tahunan.</p>
+    </div>
+
+    <!-- 15. ADMIN PROFILE PAGE -->
+    <div id="admin-profile-page" class="page">
+      <div class="profile-header">
+        <h3 style="font-size:16px;">hiraya georgienne</h3>
+        <p style="font-size:11px; color:var(--text-muted);">Administrator Store</p>
+      </div>
+      <button class="btn btn-outline" onclick="handleLogout()" style="color:#e74c3c; border-color:#e74c3c;"><i class="fa-solid fa-right-from-bracket"></i> Keluar Admin</button>
+    </div>
+
+    <!-- BOTTOM NAV BAR DYNAMIC -->
+    <nav id="main-nav" class="bottom-nav" style="display: none;"></nav>
+
+    <!-- MODAL VARIANT SHEET -->
+    <div id="variant-sheet-modal" class="modal-overlay">
+      <div class="modal-sheet">
+        <div style="display:flex; gap:12px; margin-bottom:12px;">
+          <img id="sheet-prod-img" src="" style="width:70px; height:70px; object-fit:cover; border-radius:12px;" alt="Product">
+          <div>
+            <div id="sheet-prod-price" style="font-size:16px; font-weight:800; color:var(--primary);">Rp 0</div>
+            <div id="sheet-prod-stock" style="font-size:11px; color:var(--text-muted);">Stok: 0</div>
+          </div>
+        </div>
+
+        <label style="font-size:12px; font-weight:700;">Pilih Warna / Variasi:</label>
+        <div id="sheet-variant-options" class="variant-grid"></div>
+
+        <div class="flex-between" style="margin:16px 0;">
+          <span style="font-size:12px; font-weight:700;">Jumlah Pasang:</span>
+          <div class="qty-control">
+            <button class="qty-btn" onclick="updateSheetQty(-1)">-</button>
+            <span id="sheet-qty-val" class="qty-val">1</span>
+            <button class="qty-btn" onclick="updateSheetQty(1)">+</button>
+          </div>
+        </div>
+
+        <button id="sheet-action-btn" class="btn btn-primary" onclick="confirmSheetAction()">Konfirmasi</button>
+        <button class="btn btn-secondary mt-10" onclick="closeVariantSheet()">Batal</button>
+      </div>
+    </div>
+
   </div>
 
+  <!-- LOAD SCRIPT JS -->
   <script src="data.js"></script>
   <script src="app.js"></script>
   <script src="login.js"></script>

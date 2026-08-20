@@ -3,119 +3,188 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Pretty Heels - Store</title>
+  <title>Pretty Heels</title>
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
 
   <div id="app-container">
+    <!-- TOAST NOTIFIKASI -->
+    <div id="toast"><i class="fa-solid fa-circle-check"></i> <span id="toast-text">Notifikasi</span></div>
+
     <!-- HEADER STICKY -->
-    <header class="sticky-header" id="main-header">
-      <div class="header-content">
-        <h1 class="header-title">Pretty Heels</h1>
-        <div class="header-actions">
-          <span id="user-role-badge" class="badge">Guest</span>
-          <button id="auth-btn" class="btn-auth" onclick="openLoginModal()">Login</button>
-        </div>
-      </div>
-      <nav class="role-switcher">
-        <button onclick="switchRole('customer')" id="btn-role-customer" class="role-btn active">Toko (Customer)</button>
-        <button onclick="switchRole('admin')" id="btn-role-admin" class="role-btn">Admin Dashboard</button>
-      </nav>
+    <header class="sticky-header">
+      <h1 class="header-title">Pretty Heels</h1>
+      <button class="cart-icon-btn" onclick="switchPage('cart')">
+        <i class="fa-solid fa-bag-shopping"></i>
+        <span class="cart-badge" id="cart-count">0</span>
+      </button>
     </header>
 
-    <main class="main-container">
-      <!-- HALAMAN CUSTOMER -->
-      <div id="customer-page" class="app-page active">
-        <div class="search-bar">
+    <main>
+      <!-- HALAMAN LANDING (PILIH ROLE) -->
+      <section id="page-landing" class="page landing-screen active">
+        <div class="brand-logo"><i class="fa-solid fa-shoe-prints"></i></div>
+        <h2 style="font-size: 22px; color: var(--primary-dark); margin-bottom: 8px;">Selamat Datang</h2>
+        <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 24px;">Pilih mode akses untuk melanjutkan</p>
+        
+        <div class="role-card-btn" onclick="selectRole('customer')">
+          <div class="role-icon-box"><i class="fa-solid fa-store"></i></div>
+          <div style="text-align: left;">
+            <h4 style="font-size: 14px; color: var(--primary-dark);">Mode Pembeli</h4>
+            <p style="font-size: 11px; color: var(--text-muted);">Jelajahi koleksi heels premium</p>
+          </div>
+        </div>
+
+        <div class="role-card-btn" onclick="selectRole('admin')">
+          <div class="role-icon-box"><i class="fa-solid fa-user-gear"></i></div>
+          <div style="text-align: left;">
+            <h4 style="font-size: 14px; color: var(--primary-dark);">Mode Admin</h4>
+            <p style="font-size: 11px; color: var(--text-muted);">Kelola stok, harga & laporan</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- HALAMAN TOKO (CUSTOMER) -->
+      <section id="page-store" class="page">
+        <div class="banner-slider">
+          <div>
+            <h3>Koleksi Luxury 2026</h3>
+            <p style="font-size: 12px;">Diskon khusus member hingga 20%</p>
+          </div>
+          <i class="fa-solid fa-gem" style="font-size: 40px; opacity: 0.8;"></i>
+        </div>
+
+        <div class="input-group">
           <input type="text" id="customer-search" placeholder="Cari heels favoritmu..." oninput="filterProducts()">
         </div>
+
+        <div class="section-header">
+          <span class="section-title">Katalog Produk</span>
+        </div>
         <div id="customer-product-grid" class="product-grid"></div>
-      </div>
+      </section>
+
+      <!-- HALAMAN KERANJANG -->
+      <section id="page-cart" class="page">
+        <div class="section-header">
+          <span class="section-title">Keranjang Belanja</span>
+        </div>
+        <div id="cart-items-container"></div>
+        <div class="checkout-summary">
+          <div class="summary-row total">
+            <span>Total Bayar</span>
+            <span id="cart-total-amount">Rp 0</span>
+          </div>
+          <button class="btn btn-primary mt-10" onclick="checkoutCart()">Checkout Sekarang</button>
+        </div>
+      </section>
 
       <!-- HALAMAN ADMIN -->
-      <div id="admin-page" class="app-page" style="display:none;">
-        <nav class="admin-nav-bar">
-          <button type="button" class="admin-nav-btn active" onclick="showAdminTab('products', this)">Stok Produk</button>
-          <button type="button" class="admin-nav-btn" onclick="showAdminTab('priceView', this)">Margin & Harga</button>
-          <button type="button" class="admin-nav-btn" onclick="showAdminTab('suppliers', this)">Supplier</button>
-          <button type="button" class="admin-nav-btn" onclick="showAdminTab('purchases', this)">Restock (PO)</button>
-          <button type="button" class="admin-nav-btn" onclick="showAdminTab('orders', this)">Pesanan</button>
-        </nav>
+      <section id="page-admin" class="page">
+        <div class="section-header">
+          <span class="section-title">Dashboard Admin</span>
+          <span class="badge-info" id="admin-user-badge">Guest</span>
+        </div>
 
-        <section id="tab-admin-products" class="admin-tab-content">
+        <div class="admin-nav-bar">
+          <button class="admin-nav-btn active" onclick="showAdminTab('products', this)">Stok Produk</button>
+          <button class="admin-nav-btn" onclick="showAdminTab('priceView', this)">Margin & Harga</button>
+          <button class="admin-nav-btn" onclick="showAdminTab('suppliers', this)">Data Supplier</button>
+          <button class="admin-nav-btn" onclick="showAdminTab('purchases', this)">Restock (PO)</button>
+          <button class="admin-nav-btn" onclick="showAdminTab('orders', this)">Pesanan</button>
+        </div>
+
+        <div id="tab-admin-products" class="admin-tab-content">
           <h3>Katalog & Stok Barang</h3>
-          <div class="table-wrapper">
-            <table class="admin-table">
-              <thead>
-                <tr><th>Foto</th><th>Nama Produk</th><th>Harga Jual</th><th>Stok</th><th>Terjual</th></tr>
-              </thead>
-              <tbody id="tbody-products"></tbody>
-            </table>
-          </div>
-        </section>
+          <table class="admin-table">
+            <thead>
+              <tr><th>Foto</th><th>Nama Produk</th><th>Harga Jual</th><th>Stok</th></tr>
+            </thead>
+            <tbody id="tbody-products"></tbody>
+          </table>
+        </div>
 
-        <section id="tab-admin-priceView" class="admin-tab-content" style="display:none;">
+        <div id="tab-admin-priceView" class="admin-tab-content" style="display:none;">
           <h3>Rincian Margin Keuntungan</h3>
-          <div class="table-wrapper">
-            <table class="admin-table">
-              <thead>
-                <tr><th>Nama Produk</th><th>Modal (Cost)</th><th>Harga Jual</th><th>Margin</th></tr>
-              </thead>
-              <tbody id="tbody-price-view"></tbody>
-            </table>
-          </div>
-        </section>
+          <table class="admin-table">
+            <thead>
+              <tr><th>Nama Produk</th><th>Modal</th><th>Harga Jual</th><th>Margin</th></tr>
+            </thead>
+            <tbody id="tbody-price-view"></tbody>
+          </table>
+        </div>
 
-        <section id="tab-admin-suppliers" class="admin-tab-content" style="display:none;">
+        <div id="tab-admin-suppliers" class="admin-tab-content" style="display:none;">
           <h3>Daftar Supplier</h3>
-          <div class="table-wrapper">
-            <table class="admin-table">
-              <thead>
-                <tr><th>ID</th><th>Nama Supplier</th><th>Kontak</th><th>Email</th></tr>
-              </thead>
-              <tbody id="tbody-suppliers"></tbody>
-            </table>
-          </div>
-        </section>
+          <table class="admin-table">
+            <thead>
+              <tr><th>ID</th><th>Nama Supplier</th><th>Kontak</th></tr>
+            </thead>
+            <tbody id="tbody-suppliers"></tbody>
+          </table>
+        </div>
 
-        <section id="tab-admin-purchases" class="admin-tab-content" style="display:none;">
-          <h3>Riwayat PO / Restock</h3>
-          <div class="table-wrapper">
-            <table class="admin-table">
-              <thead>
-                <tr><th>No. PO</th><th>Tanggal</th><th>Supplier</th><th>Total</th><th>Status</th></tr>
-              </thead>
-              <tbody id="tbody-purchases"></tbody>
-            </table>
-          </div>
-        </section>
+        <div id="tab-admin-purchases" class="admin-tab-content" style="display:none;">
+          <h3>Riwayat Restock (PO)</h3>
+          <table class="admin-table">
+            <thead>
+              <tr><th>No. PO</th><th>Supplier</th><th>Total</th><th>Status</th></tr>
+            </thead>
+            <tbody id="tbody-purchases"></tbody>
+          </table>
+        </div>
 
-        <section id="tab-admin-orders" class="admin-tab-content" style="display:none;">
+        <div id="tab-admin-orders" class="admin-tab-content" style="display:none;">
           <h3>Pesanan Pelanggan</h3>
-          <div class="table-wrapper">
-            <table class="admin-table">
-              <thead>
-                <tr><th>ID Pesanan</th><th>Pelanggan</th><th>Total</th><th>Metode</th><th>Status</th></tr>
-              </thead>
-              <tbody id="tbody-orders"></tbody>
-            </table>
-          </div>
-        </section>
-      </div>
+          <table class="admin-table">
+            <thead>
+              <tr><th>ID</th><th>Pelanggan</th><th>Total</th><th>Status</th></tr>
+            </thead>
+            <tbody id="tbody-orders"></tbody>
+          </table>
+        </div>
+      </section>
     </main>
+
+    <!-- BOTTOM NAVIGATION BAR -->
+    <nav class="bottom-nav">
+      <button class="nav-item active" onclick="switchPage('landing')" id="nav-landing">
+        <i class="fa-solid fa-house"></i>
+        <span>Beranda</span>
+      </button>
+      <button class="nav-item" onclick="switchPage('store')" id="nav-store">
+        <i class="fa-solid fa-bag-shopping"></i>
+        <span>Toko</span>
+      </button>
+      <button class="nav-item" onclick="switchPage('admin')" id="nav-admin">
+        <i class="fa-solid fa-chart-line"></i>
+        <span>Admin</span>
+      </button>
+      <button class="nav-item" onclick="openLoginModal()" id="nav-login">
+        <i class="fa-solid fa-user"></i>
+        <span>Akun</span>
+      </button>
+    </nav>
   </div>
 
   <!-- MODAL LOGIN -->
-  <div id="login-modal" class="modal">
-    <div class="modal-content">
-      <span class="close-btn" onclick="closeLoginModal()">&times;</span>
-      <h2>Login Akun</h2>
+  <div id="login-modal" class="modal-overlay">
+    <div class="modal-sheet">
+      <h3 style="margin-bottom: 14px; color: var(--primary-dark);">Login Akun</h3>
       <form onsubmit="handleLogin(event)">
-        <input type="text" id="login-username" placeholder="Username" required>
-        <input type="password" id="login-password" placeholder="Password" required>
-        <button type="submit" class="btn-primary">Masuk</button>
+        <div class="input-group">
+          <label>Username</label>
+          <input type="text" id="login-username" required placeholder="Masukkan username">
+        </div>
+        <div class="input-group">
+          <label>Password</label>
+          <input type="password" id="login-password" required placeholder="Masukkan password">
+        </div>
+        <button type="submit" class="btn btn-primary">Masuk</button>
+        <button type="button" class="btn btn-outline mt-10" onclick="closeLoginModal()">Batal</button>
       </form>
     </div>
   </div>

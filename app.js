@@ -16,39 +16,36 @@ function showToast(message) {
   }, 2500);
 }
 
-function switchPage(pageName) {
-  const pages = document.querySelectorAll('.page');
-  pages.forEach(p => p.classList.remove('active'));
+function navigateTo(pageId) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  const target = document.getElementById(pageId);
+  if (target) {
+    target.classList.add('active');
+  }
 
   const navItems = document.querySelectorAll('.nav-item');
   navItems.forEach(n => n.classList.remove('active'));
+  const activeNav = document.getElementById(`nav-${pageId}`);
+  if (activeNav) activeNav.classList.add('active');
 
-  const targetPage = document.getElementById(`page-${pageName}`);
-  if (targetPage) {
-    targetPage.classList.add('active');
-  }
-
-  const targetNav = document.getElementById(`nav-${pageName}`);
-  if (targetNav) {
-    targetNav.classList.add('active');
-  }
-
-  if (pageName === 'store') renderCustomerProducts();
-  if (pageName === 'cart') renderCart();
-  if (pageName === 'admin') renderAdminProducts();
+  if (pageId === 'customer-home') renderCustomerProducts();
+  if (pageId === 'cart-page') renderCart();
+  if (pageId === 'admin-dashboard-page') renderAdminProducts();
 }
 
-function selectRole(role) {
-  selectedRole = role;
-  if (role === 'admin') {
-    switchPage('admin');
-    showToast('Beralih ke Mode Admin');
+function setupLayoutForUser() {
+  const header = document.getElementById('main-header');
+  const nav = document.getElementById('main-nav');
+  
+  if (currentUser) {
+    header.style.display = 'flex';
+    if (currentUser.role === 'customer') {
+      nav.style.display = 'flex';
+    } else {
+      nav.style.display = 'none'; // Admin pakai tombol logout di atas
+    }
   } else {
-    switchPage('store');
-    showToast('Beralih ke Mode Pembeli');
+    header.style.display = 'none';
+    nav.style.display = 'none';
   }
 }
-
-document.addEventListener('DOMContentLoaded', () => {
-  renderCustomerProducts();
-});

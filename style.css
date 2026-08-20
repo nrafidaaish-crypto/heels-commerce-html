@@ -349,6 +349,7 @@ body {
 .mt-10 { margin-top: 10px; }
 .flex-between { display: flex; justify-content: space-between; align-items: center; }
 
+/* REVISI FITUR KHUSUS ADMIN PRICE & QUICK ACTIONS */
 .price-breakdown {
   background: var(--color-cream);
   padding: 6px 10px;
@@ -377,16 +378,23 @@ body {
 .btn-action-edit { color: #2980b9; background: rgba(41, 128, 185, 0.1); }
 .btn-action-delete { color: #e74c3c; background: rgba(231, 76, 60, 0.1); }
 
+
+/* ==========================================
+   TAMBAHAN PENYESUAIAN FITUR ADMIN TABEL BARU
+   (Menyesuaikan Desain & Palette Asli)
+   ========================================== */
+
+/* Navigasi Tab Admin */
 .admin-nav-bar {
   display: flex;
   gap: 8px;
   margin-bottom: 16px;
   overflow-x: auto;
   padding-bottom: 8px;
-  scrollbar-width: none;
+  scrollbar-width: none; /* Hide scrollbar Firefox */
 }
 .admin-nav-bar::-webkit-scrollbar {
-  display: none;
+  display: none; /* Hide scrollbar Chrome/Safari */
 }
 
 .admin-nav-btn {
@@ -411,6 +419,7 @@ body {
   box-shadow: 0 4px 12px rgba(133, 15, 55, 0.25);
 }
 
+/* Section Konten Tab Admin */
 .admin-tab-content {
   background: rgba(255, 255, 255, 0.94);
   backdrop-filter: blur(8px);
@@ -427,6 +436,7 @@ body {
   margin-bottom: 12px;
 }
 
+/* Styling Tabel Admin */
 .admin-table {
   width: 100%;
   border-collapse: separate;
@@ -459,6 +469,7 @@ body {
   border-bottom-right-radius: 10px;
 }
 
+/* Element Dalam Tabel Admin */
 .admin-thumb-img {
   width: 42px;
   height: 42px;

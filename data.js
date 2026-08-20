@@ -1,5 +1,6 @@
 let currentUser = null;
 let selectedRole = 'customer';
+let historyStack = [];
 let cart = [];
 
 let suppliers = [
